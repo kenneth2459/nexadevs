@@ -4,6 +4,15 @@ body, .bk-grey{
 .bk-white{
 	background-color:white;
 }
+.margin-left{
+	margin-left:10px;
+}
+.margin-right{
+	margin-right:10px;
+}
+.font-white{
+	color:#FFFFFF;
+}
 .padding{
 	padding:10px;
 }
@@ -19,11 +28,13 @@ h1{
 	padding: 20px;
 	background-color:white;
 }
-.container-6{
-	width:50%;
+.container-6, aside{
+	width:600px;
 	display: inline-block;
-    float: left;
-    height: 300px;
+    height: 436px;
+}
+.section-padding, .article-padding{
+	padding:10px;
 }
 .center{
 	text-align:center;
