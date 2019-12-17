@@ -47,10 +47,11 @@ function nueva_suscripcion_kr($nombre, $username, $password, $email ){
 /*
 ====================== INSERTA DATA DE REGISTRO EN DB ========================= 
 */ 
-function insertarData($id_user, $movie_title, $movie_year, $movie_poster ){
+function insertarData($id_user, $id_movie, $movie_title, $movie_year, $movie_poster ){
 	global $wpdb;
 	
 	 $data = array(
+	  "imdbID"         			=> $id_movie,
       "id_user"         		=> $id_user,
       "titulo_movie"         	=> $movie_title,
       "an_movie"       			=> $movie_year,
@@ -59,7 +60,7 @@ function insertarData($id_user, $movie_title, $movie_year, $movie_poster ){
 	$table = "webmedia_user_movies";
 	
   $query_exist = $wpdb->get_results(" SELECT * 
-	        FROM webmedia_user_movies WHERE titulo_movie = '$movie_title'");
+	        FROM webmedia_user_movies WHERE imdbID = '$id_movie' AND id_user='$id_user'");
 	if ($query_exist){
 		$html = '<div class="alert alert-danger margin-top-md" role="alert">';
 		$html .='<h3>Error</h3>';
@@ -80,7 +81,36 @@ function insertarData($id_user, $movie_title, $movie_year, $movie_poster ){
 	}
 
 }
-function eliminarData($id_user){
+function eliminarData($id_user, $id_movie){
+	global $wpdb;
+	
+	 $data = array(
+	  "imdbID"         			=> $id_movie,
+      "id_user"         		=> $id_user,
+    );
+	$table = "webmedia_user_movies";
+	
+  $query_exist = $wpdb->get_results(" SELECT * 
+	        FROM webmedia_user_movies WHERE imdbID = '$id_movie'");
+			//print_r($query_exist);
+	if (empty($query_exist)){
+	$html = '<div class="alert alert-info margin-top-md" role="alert">';
+	$html .='<h3>Atención</h3>';
+	$html .= '<hr>';
+	$html .='<p>Este producto no existe dentro de tus favoritos.</p>';
+	$html .= '</div>';
+	}else{
+  	$wpdb->delete( $table, $data);
+  $html = '<div class="alert alert-info margin-top-md" role="alert">';
+	$html .='<h3>Eliminado</h3>';
+	$html .= '<hr>';
+	$html .='<p>Se ha eliminado su película de sus favoritos.</p>';
+	$html .= '</div>';
+	 }
+	echo $html;
+
+}
+function showData($id_user){
 	global $wpdb;
 	
 	 $data = array(
@@ -89,15 +119,31 @@ function eliminarData($id_user){
 	$table = "webmedia_user_movies";
 	
   
-  $wpdb->delete( $table, $data);
-  $html = '<div class="alert alert-success margin-top-md" role="alert">';
-	$html .='<h3>Eliminado</h3>';
-	$html .= '<hr>';
-	$html .='<p>Se ha eliminado su película de sus favoritos.</p>';
-	$html .= '</div>';
+ $query_exist = $wpdb->get_results(" SELECT * 
+	        FROM webmedia_user_movies WHERE id_user = '$id_user'"); ?>
+	       <table class="table table-striped">
+				<tr>
+					<td>ID</td>
+					<td>Título</td>
+					<td>Año</td>
+					<td>Poster</td>
+				</tr>
+	<?php
 	  	
-	echo $html;
-
+	foreach ($query_exist as $data){
+		
+		
+			echo '<tr>';
+			echo '<td>'.$data->imdbID . '</td>';
+			echo '<td>'.$data->titulo_movie . '</td>';
+			echo '<td>'.$data->an_movie . '</td>';
+			echo '<td><img class="img-fluid" src="'.$data->movie_poster . '" /></td>';
+			echo '</td>';
+					
+	}
+	?>
+</table>
+<?php
 }
 
 
