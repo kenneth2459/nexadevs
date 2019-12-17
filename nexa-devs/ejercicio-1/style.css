@@ -1,0 +1,33 @@
+body, .bk-grey{
+	background-color:grey;	
+}
+.bk-white{
+	background-color:white;
+}
+.padding{
+	padding:10px;
+}
+h1{
+	font-size:36px;
+}
+.container{
+	max-width:1200px;
+	margin:0 auto;
+}
+.header-title{
+	text-align:center;
+	padding: 20px;
+	background-color:white;
+}
+.container-6{
+	width:50%;
+	display: inline-block;
+    float: left;
+    height: 300px;
+}
+.center{
+	text-align:center;
+}
+footer{
+	width:1200px;
+}
