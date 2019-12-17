@@ -1,0 +1,45 @@
+/*
+Theme Name: Nexadevs
+Author: Kenneth Rosales
+Author URI: https://wordpress.org/
+Description: Tema creado para Nexadevs
+Version: 1.0
+License: GNU General Public License 
+License URI: license.txt
+*/
+.margin-top-sm{
+	margin-top:10px;
+}
+.margin-top-md{
+	margin-top:20px;
+}
+.margin-top-lg{
+	margin-top:40px;
+}
+.margin-bottom-sm{
+	margin-bottom:10px;
+}
+.margin-bottom-md{
+	margin-bottom:20px;
+}
+.margin-bottom-lg{
+	margin-bottom:40px;
+}
+.padding-top-sm{
+	padding-top:10px;
+}
+.padding-top-md{
+	padding-top:20px;
+}
+.padding-top-lg{
+	padding-top:40px;
+}
+.padding-bottom-sm{
+	padding-bottom:10px;
+}
+.padding-bottom-md{
+	padding-bottom:20px;
+}
+.padding-bottom-lg{
+	padding-bottom:40px;
+}
