@@ -11,7 +11,7 @@
 			<?php
 			if(is_user_logged_in()){
 			$user = wp_get_current_user();
-			//echo $user->ID;
+			echo $user->ID;
 			$json = file_get_contents('http://www.omdbapi.com/?S=guardian&apikey=5551c279');
 
 			$data = json_decode($json,true);
@@ -70,6 +70,16 @@
 						echo '<td><img class="img-fluid" src="'.$movie_indepent['Poster'] . '" /></td>';
 					?>
 					<td>
+					<?php
+						$user_id_comparation = $user->ID;
+						$id_movie_comparation = $movie_indepent['imdbID'];
+						//echo $user_id_comparation.' ';
+						//echo $id_movie_comparation;
+						 $array_data = showButton($user_id_comparation, $id_movie_comparation);
+						 if (!empty($array_data)){
+						 	echo '';
+						 }else{
+					?>
 						<form id="agregar" method="post" class="margin-bottom-md">
 							<input type="hidden" value="<?php echo $user->ID; ?>" name="user_ID" />
 							<input type="hidden" value="<?php echo $movie_indepent['imdbID'] ?>" name="imdbID" />
@@ -79,6 +89,7 @@
 							<button id="guardar" type="guardar" name="guardar" class="btn btn-info">Guardar</button>
 						</form>
 					</td>
+					<?php } ?>
 					<td>
 						<form id="eliminar" method="post" class="margin-bottom-md">
 							<input type="hidden" value="<?php echo $user->ID; ?>" name="user_ID" />

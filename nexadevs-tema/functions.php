@@ -5,6 +5,18 @@ define('HOMELINK', site_url('/'));
 define('PATH', get_template_directory_uri());
 define('IMAGES', get_template_directory_uri()."/img" );
 define('SITENAME', get_bloginfo('name') );
+/*------------------- BARRA OCULTA EN SUSCRIPTORES --------------------*/
+if (!current_user_can('administrator')) :
+  show_admin_bar(false);
+endif;
+/*---------------------- REDIRECCION DE SUSCRIPTORES A LA HOME ------------------------*/
+function redirect_to_front_page() {
+	global $redirect_to;
+	if (!isset($_GET['redirect_to'])) {
+		$redirect_to = get_option('siteurl').'/add-movie';
+	}
+}
+add_action('login_form', 'redirect_to_front_page');
 
 
 /*-----------------------------------------------------------------------------------------------*/
@@ -91,17 +103,17 @@ function eliminarData($id_user, $id_movie){
 	$table = "webmedia_user_movies";
 	
   $query_exist = $wpdb->get_results(" SELECT * 
-	        FROM webmedia_user_movies WHERE imdbID = '$id_movie'");
+	        FROM webmedia_user_movies WHERE imdbID = '$id_movie' AND id_user='$id_user'");
 			//print_r($query_exist);
 	if (empty($query_exist)){
-	$html = '<div class="alert alert-info margin-top-md" role="alert">';
+	$html = '<div class="alert alert-warning margin-top-md" role="alert">';
 	$html .='<h3>Atención</h3>';
 	$html .= '<hr>';
 	$html .='<p>Este producto no existe dentro de tus favoritos.</p>';
 	$html .= '</div>';
 	}else{
   	$wpdb->delete( $table, $data);
-  $html = '<div class="alert alert-info margin-top-md" role="alert">';
+  $html = '<div class="alert alert-danger margin-top-md" role="alert">';
 	$html .='<h3>Eliminado</h3>';
 	$html .= '<hr>';
 	$html .='<p>Se ha eliminado su película de sus favoritos.</p>';
@@ -112,10 +124,6 @@ function eliminarData($id_user, $id_movie){
 }
 function showData($id_user){
 	global $wpdb;
-	
-	 $data = array(
-      "id_user"         		=> $id_user,
-    );
 	$table = "webmedia_user_movies";
 	
   
@@ -138,13 +146,18 @@ function showData($id_user){
 			echo '<td>'.$data->titulo_movie . '</td>';
 			echo '<td>'.$data->an_movie . '</td>';
 			echo '<td><img class="img-fluid" src="'.$data->movie_poster . '" /></td>';
-			echo '</td>';
+			echo '</tr>';
 					
 	}
 	?>
 </table>
 <?php
 }
-
-
+function showButton($user_id_comparation, $id_movie_comparation){
+	global $wpdb;
+	$table = "webmedia_user_movies";
+	$sql = $wpdb->get_results(" SELECT * FROM webmedia_user_movies WHERE imdbID = '$id_movie_comparation' AND id_user='$user_id_comparation'");
+	
+	return $sql;
+}
 ?>

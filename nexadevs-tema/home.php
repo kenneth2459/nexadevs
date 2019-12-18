@@ -36,7 +36,7 @@
 				}
 			?>
 			<div class="formulario" <?php echo (isset($ocultar))? $ocultar:''; ?> >
-				<div class="text-center">¿Ya se ha suscrito? Inicie sesión <a href="http://trends.ufm.edu/wmufm">aquí</a></div>
+				<div class="text-center">¿Ya se ha suscrito? Inicie sesión <a href="http://localhost/nexa-devs-wp/wp-admin">aquí</a></div>
 				<hr/>
 				<form id="suscribe" method="post" class="margin-bottom-md">
 					<div class="row">
