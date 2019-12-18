@@ -102,8 +102,7 @@ function eliminarData($id_user, $id_movie){
     );
 	$table = "webmedia_user_movies";
 	
-  $query_exist = $wpdb->get_results(" SELECT * 
-	        FROM webmedia_user_movies WHERE imdbID = '$id_movie' AND id_user='$id_user'");
+  $query_exist = $wpdb->get_results(" SELECT * FROM webmedia_user_movies WHERE imdbID = '$id_movie' AND id_user='$id_user'");
 			//print_r($query_exist);
 	if (empty($query_exist)){
 	$html = '<div class="alert alert-warning margin-top-md" role="alert">';
@@ -127,8 +126,7 @@ function showData($id_user){
 	$table = "webmedia_user_movies";
 	
   
- $query_exist = $wpdb->get_results(" SELECT * 
-	        FROM webmedia_user_movies WHERE id_user = '$id_user'"); ?>
+ $query_exist = $wpdb->get_results(" SELECT * FROM $table WHERE id_user = '$id_user'"); ?>
 	       <table class="table table-striped">
 				<tr>
 					<td>ID</td>
@@ -156,7 +154,7 @@ function showData($id_user){
 function showButton($user_id_comparation, $id_movie_comparation){
 	global $wpdb;
 	$table = "webmedia_user_movies";
-	$sql = $wpdb->get_results(" SELECT * FROM webmedia_user_movies WHERE imdbID = '$id_movie_comparation' AND id_user='$user_id_comparation'");
+	$sql = $wpdb->get_results(" SELECT * FROM $table WHERE imdbID = '$id_movie_comparation' AND id_user='$user_id_comparation'");
 	
 	return $sql;
 }
