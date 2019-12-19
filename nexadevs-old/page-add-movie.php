@@ -35,6 +35,13 @@
 			}
 			//echo "<pre>";
 			//print_r($movies);
+			/*foreach($movies as $movie){
+				//print_r($movie[0]);
+				foreach($movie as $movie_indepent){
+					echo $movie_indepent['imdbID'] . '<br>';
+					echo $movie_indepent['Title'] . '<br>';
+				}
+			}*/
 			
 			//print_r($movies['Title']);
 			//print_r($movies['Year']);
@@ -47,11 +54,46 @@
 					<td>Título</td>
 					<td>Año</td>
 					<td>Poster</td>
-					<td>Rating</td>
 					<td>Agregar</td>
 					<td>Eliminar</td>
 				</tr>
-				<tr>
+				<?php 
+				foreach($movies as $movie){ ?>
+					<?php 
+					if (is_array($movie)) {
+					foreach($movie as $movie_indepent){
+						echo '<tr>';
+						echo '<td>'.$movie_indepent['imdbID'] . '</td>';
+						echo '<td>'.$movie_indepent['Title'] . '</td>';
+						echo '<td>'.$movie_indepent['Year'] . '</td>';
+						echo '<td><img class="img-fluid" src="'.$movie_indepent['Poster'] . '" /></td>';
+					?>
+					<td>
+						<form id="agregar" method="post" class="margin-bottom-md">
+							<input type="hidden" value="<?php echo $user->ID; ?>" name="user_ID" />
+							<input type="hidden" value="<?php echo $movie_indepent['imdbID'] ?>" name="imdbID" />
+							<input type="hidden" value="<?php echo $movie_indepent['Title'] ?>" name="title_movie" />
+							<input type="hidden" value="<?php echo $movie_indepent['Year'] ?>" name="year_movie" />
+							<input type="hidden" value="<?php echo $movie_indepent['Poster'] ?>" name="poster_movie" />
+							<button id="guardar" type="guardar" name="guardar" class="btn btn-info">Guardar</button>
+						</form>
+					</td>
+					<td>
+						<form id="eliminar" method="post" class="margin-bottom-md">
+							<input type="hidden" value="<?php echo $user->ID; ?>" name="user_ID" />
+							<input type="hidden" value="<?php echo $movie_indepent['imdbID'] ?>" name="imdbID" />
+							<input type="hidden" value="<?php echo $movie_indepent['Title'] ?>" name="title_movie" />
+							<input type="hidden" value="<?php echo $movie_indepent['Year'] ?>" name="year_movie" />
+							<input type="hidden" value="<?php echo $movie_indepent['Poster'] ?>" name="poster_movie" />
+							<button id="eliminar" type="eliminar" name="eliminar" class="btn btn-danger">Eliminar</button>
+						</form>
+					</td>
+					</tr>
+				<?php }
+					}
+					}
+				?>
+				<!--<tr>
 					<td><?php echo $movies['imdbID'] ?></td>
 					<td><?php echo $movies['Title'] ?></td>
 					<td><?php echo $movies['Year'] ?></td>
@@ -59,27 +101,8 @@
 					<td><?php foreach ($movies['Ratings'] as $rating){
 						echo $rating['Source'].' '.$rating['Value']. '<br />';
 					}?></td>
-					<td>
-						<form id="agregar" method="post" class="margin-bottom-md">
-							<input type="hidden" value="<?php echo $user->ID; ?>" name="user_ID" />
-							<input type="hidden" value="<?php echo $movies['imdbID'] ?>" name="imdbID" />
-							<input type="hidden" value="<?php echo $movies['Title'] ?>" name="title_movie" />
-							<input type="hidden" value="<?php echo $movies['Year'] ?>" name="year_movie" />
-							<input type="hidden" value="<?php echo $movies['Poster'] ?>" name="poster_movie" />
-							<button id="guardar" type="guardar" name="guardar" class="btn btn-info">Guardar</button>
-						</form>
-					</td>
-					<td>
-						<form id="eliminar" method="post" class="margin-bottom-md">
-							<input type="hidden" value="<?php echo $user->ID; ?>" name="user_ID" />
-							<input type="hidden" value="<?php echo $movies['imdbID'] ?>" name="imdbID" />
-							<input type="hidden" value="<?php echo $movies['Title'] ?>" name="title_movie" />
-							<input type="hidden" value="<?php echo $movies['Year'] ?>" name="year_movie" />
-							<input type="hidden" value="<?php echo $movies['Poster'] ?>" name="poster_movie" />
-							<button id="eliminar" type="eliminar" name="eliminar" class="btn btn-danger">Eliminar</button>
-						</form>
-					</td>
-				</tr>
+					
+				</tr>-->
 			</table>	
 			<?php
 			

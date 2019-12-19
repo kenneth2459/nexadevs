@@ -11,14 +11,37 @@
 			<?php
 			if(is_user_logged_in()){
 			$user = wp_get_current_user();
-			echo $user->ID;
-			$json = file_get_contents('http://www.omdbapi.com/?S=guardian&apikey=5551c279');
+			//echo $user->ID;
+			
+			if(isset($_POST['buscar'])) {
+				echo 'entro aquí';
+			$buscar = $_POST['buscarNuevo'];
+				echo $buscar;
+			$json = file_get_contents('http://www.omdbapi.com/?S='.$buscar.'&apikey=5551c279');
+			
 
 			$data = json_decode($json,true);
-			//$data = $json;
+			}else{
+				$json = file_get_contents('http://www.omdbapi.com/?S=guardian&apikey=5551c279');
+			
+
+				$data = json_decode($json,true);
+			}//$data = $json;
 			
 			//var_dump($data);
+			?>
+			<div class="row">
+				<div class="col-md-4">
+					<form id="buscar" method="post" class="margin-bottom-md">
+						<div class="form-group">
+							<input type="text" class="form-control" name="buscarNuevo" />
+						</div>
+						<button id="buscar" type="buscar" name="buscar" class="btn btn-success">Buscar</button>
+					</form>
+				</div>
+			</div>
 			
+			<?php
 			$movies = $data;
 			if(isset($_POST['guardar'])) {
 				//echo "entro en el guardar";
