@@ -9,20 +9,34 @@
 		</div>
 		<div class="col-md-12">
 			<?php
+			$array_nuevo = array(1,3,13,3);
+			
+			function arreglo($array_nuevo){
+				
+				if(count($array_nuevo) > count(array_unique($array_nuevo))){
+				  $mensaje = "¡Hay repetidos!";
+				}else{
+				  $mensaje = "No hay repetidos";
+				}
+				
+				echo $mensaje;
+			}
+			echo arreglo($array_nuevo);
 			if(is_user_logged_in()){
 			$user = wp_get_current_user();
 			//echo $user->ID;
 			
 			if(isset($_POST['buscar'])) {
-				echo 'entro aquí';
+				//echo 'entro aquí';
 			$buscar = $_POST['buscarNuevo'];
-				echo $buscar;
+			echo $buscar;
 			$json = file_get_contents('http://www.omdbapi.com/?S='.$buscar.'&apikey=5551c279');
 			
 
 			$data = json_decode($json,true);
 			}else{
-				$json = file_get_contents('http://www.omdbapi.com/?S=guardian&apikey=5551c279');
+				//$str = preg_replace('~[^a-z0-9]+~i', '', '');
+				$json = file_get_contents('http://www.omdbapi.com/?S=angel&apikey=5551c279');
 			
 
 				$data = json_decode($json,true);
